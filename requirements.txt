@@ -2,3 +2,4 @@ pytelegrambotapi
 requests
 python-dotenv
 gunicorn
+flask

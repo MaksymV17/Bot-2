@@ -5,7 +5,24 @@ import time
 from dotenv import load_dotenv
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup, KeyboardButton
 import threading
+import os
+import threading
+from flask import Flask
 
+# Створюємо фоновий веб-сервер для Render
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Bot is alive!"
+
+def run_flask():
+    # Render сам передає порт через змінну оточення PORT
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
+
+# Запускаємо веб-сервер в окремому потоці
+threading.Thread(target=run_flask, daemon=True).start()
 
 
 load_dotenv()
